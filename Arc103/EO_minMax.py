@@ -14,7 +14,7 @@ inSHP = arcpy.GetParameterAsText(0)#"H:/GIS_data/EO_updates/Updates18_19/JonesPo
 zone = "FID"
 ndBehavior = "DATA"
 outZS = "in_memory/outZS"
-stats = "MIN_MAX_MEAN"
+stats = "MIN_MAX"
 ZonalStatisticsAsTable(inSHP, zone, inDEM, outZS, ndBehavior, stats)
 
 #below from https://community.esri.com/thread/44338
@@ -24,6 +24,4 @@ minFT = minValue*3.28084
 myField = "MAX"  
 maxValue = arcpy.SearchCursor(outZS, "", "", "", myField + " D").next().getValue(myField) #Get 1st row in descending cursor sort  
 maxFT = maxValue*3.28084
-#f.write("{0}, {1}, {2}, {3}".format(row.VEHICLEID,row.NEAR_X,row.NEAR_Y,row.TIME))
-print("Minimum elevation:%.2f meters (%.2f ft)\nMaximum elevation:%.2f meters (%.2f ft)"%(minValue,minFT,maxValue,maxFT))
-arcpy.AddMessage("\n\nMinimum elevation:%.2f meters (%.2f ft)\nMaximum elevation:%.2f meters (%.2f ft)\n\n"%(minValue,minFT,maxValue,maxFT))
+arcpy.AddMessage("\n\nMinimum elevation:{0:.2f} meters ({1:.2f})\nMaximum elevation:{2:.2f} meters ({3:.2f} ft)\n\n".format(minValue,minFT,maxValue,maxFT))
